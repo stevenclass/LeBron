@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.title("NFL Data Predictions")
+st.title("NBA MVP Prediction")
 
-pd.read_csv("spreadspoke_scores.xlsx.csv")
+pd.read_csv("NBAdata.csv")
 
