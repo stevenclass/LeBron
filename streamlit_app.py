@@ -11,12 +11,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
+left_co, cent_co,last_co = st.columns(3)
 
-
-st.title("Lebron's Game Points Prediction")
+with cent_co:
+    st.title("Lebron's Game Points Prediction")
 
 image_path = Image.open("nba-lebron-james-record-milliard-fortune-cigare.webp")
-left_co, cent_co,last_co = st.columns(3)
+
 with cent_co:
     st.image(image_path,width=400)
 
