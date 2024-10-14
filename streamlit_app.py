@@ -56,8 +56,8 @@ if app_page == 'Data Exploration':
     game_dummies = pd.get_dummies(df['Game_Type'], prefix='', prefix_sep='')
     
     df = pd.concat([df, game_dummies], axis=1)
-     # Convert from hh:mm:ss to minutes
-    df['Min'] = pd.to_timedelta(df['Min']).dt.total_seconds() / 60 
+     # Convert to a numerical mins column
+    df['Minutes'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
 
     st.dataframe(df.head(5))
 
