@@ -60,7 +60,9 @@ if app_page == 'Data Exploration':
     st.write("Let's convert minutes from a mm:ss:SS format to numerical minutes out of 60")
     df['Min'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
 
-    st.dataframe(df.head(5))
+    df_numeric_only = df.select_dtypes(exclude=['object'])
+
+    st.dataframe(df_numeric_only.head(5))
 
     st.success("Now, we have a clean dataset, ready to be explored")
 
