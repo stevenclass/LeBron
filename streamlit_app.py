@@ -41,8 +41,7 @@ if app_page == 'Data Exploration':
         st.success("Congrats you have no missing values")
     df = df[df['Opp'] != "@EAS"]
     st.write(df['Date'])
-    df['Date'] = df['Date'] + ' 2023'
-    df['Date'] = pd.to_datetime(df['Date'], format='%b %d %Y')
+    df['Date'] = pd.to_datetime(df['Date'], format='%b %d')
     df['Date'] = pd.to_datetime(df['Date'])
     df['Rest Days'] = df['Date'].diff().dt.days
     df['Rest Days'] = df['Rest Days'].fillna(0)
