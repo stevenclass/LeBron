@@ -55,8 +55,9 @@ if app_page == 'Data Exploration':
     st.write("Let's one hot encode it so that we can convert it to numerical columns for our prediction training model")
     game_dummies = pd.get_dummies(df['Game_Type'], prefix='', prefix_sep='')
     
-    
     df = pd.concat([df, game_dummies], axis=1)
+     # Convert from hh:mm:ss to minutes
+    df['Min'] = pd.to_timedelta(df['Min']).dt.total_seconds() / 60 
 
     st.dataframe(df.head(5))
 
@@ -100,7 +101,7 @@ if app_page == 'Visualization':
 if app_page == 'Prediction':
 
     st.title("03 Prediction")
-    list_columns = df.columns
+    list_columns = df[df[""]]
     input_lr = st.multiselect("Select variables:",list_columns,["FGA","OR","TO"])
 
     df2 = df[input_lr]
