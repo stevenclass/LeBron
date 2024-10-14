@@ -13,13 +13,12 @@ from sklearn import metrics
 
 left_co, cent_co,last_co = st.columns(3)
 
-with cent_co:
-    st.title("Lebron's Game Points Prediction")
+st.title("Lebron's Game Points Prediction")
 
 image_path = Image.open("nba-lebron-james-record-milliard-fortune-cigare.webp")
 
-with cent_co:
-    st.image(image_path,width=400)
+
+st.image(image_path,width=400)
 
 
 app_page = st.sidebar.selectbox("Select Page",['Data Exploration','Visualization','Prediction'])
