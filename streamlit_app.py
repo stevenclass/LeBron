@@ -39,25 +39,21 @@ if app_page == 'Data Exploration':
 
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
-    df = df[df['Opp'] != "@EAS"]
+
+    total_all_stars_games = (df['Opp'] != "@EAS")
+
+    if total_all_stars_games.sum() != 0:
+        st.success("Let's remove All Star Games since they're not a part of LeBron's season games")
     
-    # Create a placeholder for the current year
-    current_year = 2023  # Start with the most recent year
-    dates_with_year = []
+    df = df[total_all_stars_games]
+    
+    df['Game_Type'] = df['Opp'].apply(lambda x: 'Away' if x.startswith('@') else 'Home')
 
-    # Iterate over the Date column and assign the correct year
-    for date in df['Date']:
-        if date.startswith('Jan'):
-            current_year = 2023 if current_year is None else current_year - 1  # Reduce the year when "Jan" is found
-
-        # Append the date with the current year
-        dates_with_year.append(f"{date} {current_year}")
-
-    # Update the DataFrame with the new Date column including the year
-    df['Date'] = pd.to_datetime(dates_with_year, format='%b %d %Y')
-    st.write(df['Date'])
-    df['Rest Days'] = df['Date'].diff().dt.days
-    df['Rest Days'] = df['Rest Days'].fillna(0)
+    # Step 2: One-hot encode the 'Game_Type' column
+    game_dummies = pd.get_dummies(df['Game_Type'], prefix='', prefix_sep='')
+    
+    # Step 3: Concatenate the one-hot encoded columns back to the original DataFrame
+    df = pd.concat([df, game_dummies], axis=1)
 
     if st.button("Generate Report"):
 
