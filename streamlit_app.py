@@ -53,7 +53,7 @@ if app_page == 'Data Exploration':
     df['Date'] = df['Date'] + ' 2023'  # Append year
     
     # Convert to datetime format
-    df['Date'] = pd.to_datetime(df['Date'], format='%b %d %Y')
+    df['Date'] = pd.to_datetime(df['Date'], format='mixed')
     
     # Extract the month played
     df['Month'] = df['Date'].dt.month
