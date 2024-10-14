@@ -15,8 +15,8 @@ from sklearn import metrics
 
 st.title("Lebron's Game Points Prediction")
 
-image_path = Image.open("images.jpg")
-st.image(image_path,width=400)
+#image_path = Image.open("images.jpg")
+#st.image(image_path,width=400)
 
 
 app_page = st.sidebar.selectbox("Select Page",['Data Exploration','Visualization','Prediction'])
