@@ -50,7 +50,7 @@ if app_page == 'Data Exploration':
 
     # Append a year to the date strings to create a full date (assuming the games happened in 2023 for simplicity)
     # You can change '2023' to the appropriate year or handle it dynamically if you have multiple years
-    df['Date'] = df['Date'] + ' 2023'  # Append year
+    df['Date'] = df['Date'] + ' 2024'  # Append year
     
     # Convert to datetime format
     df['Date'] = pd.to_datetime(df['Date'], format='mixed')
