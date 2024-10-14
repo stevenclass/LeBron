@@ -70,11 +70,11 @@ if app_page == 'Data Exploration':
                 return f.read()
 
         # Inputing the file path 
-        # html_report= read_html_report("report.html")
+        html_report= read_html_report("report.html")
 
         # Displaying the file
         st.title("Streamlit Quality Report")
-        # st.components.v1.html(html_report,height=1000,scrolling=True)
+        st.components.v1.html(html_report,height=1000,scrolling=True)
 
 if app_page == 'Visualization':
     st.subheader("03 Data Visualization")
