@@ -64,6 +64,8 @@ if app_page == 'Data Exploration':
 
     st.dataframe(df_numeric_only.head(5))
 
+    df = df_numeric_only
+
     st.success("Now, we have a clean dataset, ready to be explored")
 
     if st.button("Generate Report"):
