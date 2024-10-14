@@ -50,8 +50,8 @@ if app_page == 'Data Exploration':
         if date.startswith('Jan'):
             current_year = 2023 if current_year is None else current_year - 1  # Reduce the year when "Jan" is found
 
-    # Append the date with the current year
-    dates_with_year.append(f"{date} {current_year}")
+        # Append the date with the current year
+        dates_with_year.append(f"{date} {current_year}")
 
     # Update the DataFrame with the new Date column including the year
     df['Date'] = pd.to_datetime(dates_with_year, format='%b %d %Y')
