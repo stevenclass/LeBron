@@ -57,7 +57,7 @@ if app_page == 'Data Exploration':
     
     df = pd.concat([df, game_dummies], axis=1)
      # Convert to a numerical mins column
-    df['Minutes'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
+    df['Min'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
 
     st.dataframe(df.head(5))
 
