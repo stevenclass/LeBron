@@ -104,7 +104,7 @@ if app_page == 'Visualization':
 if app_page == 'Prediction':
 
     st.title("03 Prediction")
-    list_columns = df[df[""]]
+    list_columns = df_numeric_only.columns.remove("Pts")
     input_lr = st.multiselect("Select variables:",list_columns,["FGA","OR","TO"])
 
     df2 = df[input_lr]
