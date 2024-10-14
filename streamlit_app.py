@@ -59,7 +59,7 @@ if app_page == 'Data Exploration':
      # Convert to a numerical mins column
     st.write("Let's convert minutes from a mm:ss:SS format to numerical minutes out of 60")
     df['Min'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
-
+    
     df_numeric_only = df.select_dtypes(exclude=['object'])
 
     st.dataframe(df_numeric_only.head(5))
@@ -85,7 +85,7 @@ if app_page == 'Visualization':
 
     list_columns = df.columns
 
-    values = st.multiselect("Select two variables:",list_columns,["Pts","OR"])
+    values = st.multiselect("Select two variables:",list_columns,["FT%", "Pts"])
 
     # Creation of the line chart
     st.line_chart(df,x=values[0],y=values[1])
