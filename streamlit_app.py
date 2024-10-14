@@ -40,9 +40,22 @@ if app_page == 'Data Exploration':
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
     df = df[df['Opp'] != "@EAS"]
+    
+    # Create a placeholder for the current year
+    current_year = 2023  # Start with the most recent year
+    dates_with_year = []
+
+    # Iterate over the Date column and assign the correct year
+    for date in df['Date']:
+        if date.startswith('Jan'):
+            current_year = 2023 if current_year is None else current_year - 1  # Reduce the year when "Jan" is found
+
+    # Append the date with the current year
+    dates_with_year.append(f"{date} {current_year}")
+
+    # Update the DataFrame with the new Date column including the year
+    df['Date'] = pd.to_datetime(dates_with_year, format='%b %d %Y')
     st.write(df['Date'])
-    df['Date'] = pd.to_datetime(df['Date'], format='%b %d')
-    df['Date'] = pd.to_datetime(df['Date'])
     df['Rest Days'] = df['Date'].diff().dt.days
     df['Rest Days'] = df['Rest Days'].fillna(0)
 
