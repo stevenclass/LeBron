@@ -55,6 +55,8 @@ if app_page == 'Data Exploration':
     # Step 3: Concatenate the one-hot encoded columns back to the original DataFrame
     df = pd.concat([df, game_dummies], axis=1)
 
+    st.dataframe(df.head(5))
+
     if st.button("Generate Report"):
 
         #Function to load HTML file
