@@ -45,19 +45,22 @@ if app_page == 'Data Exploration':
     total_all_stars_games = (df['Opp'] != "@EAS")
 
     if total_all_stars_games.sum() != 0:
-        st.success("Let's remove All Star Games since they're not a part of LeBron's season games")
+        st.write("Let's remove All Star Games since they're not a part of LeBron's season games")
     
     df = df[total_all_stars_games]
-    
+    st.write("Next, let's generate a new feature: is the Game Type - Away or Home")
     df['Game_Type'] = df['Opp'].apply(lambda x: 'Away' if x.startswith('@') else 'Home')
-
-    # Step 2: One-hot encode the 'Game_Type' column
+    
+    
+    st.write("Let's one hot encode it so that we can convert it to numerical columns for our prediction training model")
     game_dummies = pd.get_dummies(df['Game_Type'], prefix='', prefix_sep='')
     
-    # Step 3: Concatenate the one-hot encoded columns back to the original DataFrame
+    
     df = pd.concat([df, game_dummies], axis=1)
 
     st.dataframe(df.head(5))
+
+    st.success("Now, we have a clean dataset, ready to be explored")
 
     if st.button("Generate Report"):
 
