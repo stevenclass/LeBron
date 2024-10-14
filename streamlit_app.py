@@ -86,6 +86,7 @@ if app_page == 'Visualization':
     st.subheader("03 Data Visualization")
 
     list_columns = df.columns
+    st.write(df.columns)
 
     values = st.multiselect("Select two variables:",list_columns,["FT%", "Pts"])
 
