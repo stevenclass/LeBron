@@ -94,6 +94,8 @@ if app_page == 'Data Exploration':
 if app_page == 'Visualization':
     st.subheader("03 Data Visualization")
 
+    df = st.session_state.df
+    
     list_columns = df.columns
     st.write(df.columns)
 
@@ -116,6 +118,7 @@ if app_page == 'Visualization':
 if app_page == 'Prediction':
 
     st.title("03 Prediction")
+    df = st.session_state.df
     list_columns = df.columns.remove("Pts")
     input_lr = st.multiselect("Select variables:",list_columns,["FGA","OR","TO"])
 
