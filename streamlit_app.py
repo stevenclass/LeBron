@@ -47,16 +47,9 @@ if app_page == 'Data Exploration':
 
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
-
-    # Append a year to the date strings to create a full date (assuming the games happened in 2023 for simplicity)
-    # You can change '2023' to the appropriate year or handle it dynamically if you have multiple years
-    df['Date'] = df['Date'] + ' 2020'  # Append year
-    
-    # Convert to datetime format
-    df['Date'] = pd.to_datetime(df['Date'], format='mixed')
     
     # Extract the month played
-    df['Month'] = df['Date'].dt.month
+    df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
 
     total_all_stars_games = (df['Opp'] != "@EAS")
 
