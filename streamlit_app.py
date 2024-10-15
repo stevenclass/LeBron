@@ -98,7 +98,7 @@ if app_page == 'Visualization':
     
     list_columns = df.columns
 
-    values = st.multiselect("Select two variables:",list_columns,["OR", "Pts"])
+    values = st.multiselect("Select two variables:",list_columns,["Reb", "Pts"])
 
     # Creation of the line chart
     st.line_chart(df,x=values[0],y=values[1])
@@ -107,7 +107,7 @@ if app_page == 'Visualization':
     st.bar_chart(df,x=values[0],y=values[1])
 
     # Pairplot
-    values_pairplot = st.multiselect("Select 4 variables:",list_columns,["Pts","OR","Min","TO"])
+    values_pairplot = st.multiselect("Select 4 variables:",list_columns,["Pts","Reb","Min","TO"])
 
     df2 = df[[values_pairplot[0],values_pairplot[1],values_pairplot[2],values_pairplot[3]]]
     pair = sns.pairplot(df2)
