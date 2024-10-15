@@ -6,7 +6,6 @@ from PIL import Image
 import seaborn as sns
 import codecs
 import streamlit.components.v1 as components
-import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -22,29 +21,9 @@ image_path = Image.open("nba-lebron-james-record-milliard-fortune-cigare.webp")
 st.image(image_path,width=400)
 
 
-app_page = st.sidebar.selectbox("Select Page",['Profiling Report','Data Exploration','Visualization','Prediction'])
+app_page = st.sidebar.selectbox("Select Page",['Data Exploration','Visualization','Prediction'])
 
-if 'df' not in st.session_state:
-    df = pd.read_csv("lebron-game-log-dataset.csv")
-    st.session_state.df = df
-
-# Use session state to store the DataFrame
-df = st.session_state.df.copy()
-
-if app_page == 'Profiling Report':
-    
-    if st.button("Generate Report"):
-        def read_html_report(file_path):
-            try:
-                with codecs.open(file_path, 'r', encoding="utf-8") as f:
-                    return f.read()
-            except Exception as e:
-                st.error(f"Error reading the report file: {e}")
-                return ""
-        html_report = read_html_report("report.html")
-        if html_report:
-            st.title("Streamlit Quality Report")
-            st.components.v1.html(html_report, height=1000, scrolling=True)
+df = pd.read_csv("lebron-game-log-dataset.csv")
 
 if app_page == 'Data Exploration':
 
@@ -63,43 +42,23 @@ if app_page == 'Data Exploration':
 
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
-    
-    st.write("Let's extract the Month played")
-    df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
 
-    total_all_stars_games = (df['Opp'] != "@EAS")
+    if st.button("Generate Report"):
 
-    if total_all_stars_games.sum() != 0:
-        st.write("Let's remove All Star Games since they're not a part of LeBron's season games")
-    
-    df = df[total_all_stars_games]
-    st.write("Next, let's generate a new feature: is the Game Type - Away or Home")
-    df['Game_Type'] = df['Opp'].apply(lambda x: 'Away' if x.startswith('@') else 'Home')
-    
-    
-    st.write("Let's one hot encode it so that we can convert it to numerical columns for our prediction training model")
-    game_dummies = pd.get_dummies(df['Game_Type'], prefix='', prefix_sep='')
-    
-    df = pd.concat([df, game_dummies], axis=1)
-     # Convert to a numerical mins column
-    st.write("Let's convert minutes from a mm:ss:SS format to numerical minutes out of 60")
-    df['Min'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
-    
-    df_numeric_only = df.select_dtypes(exclude=['object'])
+        #Function to load HTML file
+        def read_html_report(file_path):
+            with codecs.open(file_path,'r',encoding="utf-8") as f:
+                return f.read()
 
-    st.dataframe(df_numeric_only.head(5))
+        # Inputing the file path 
+        html_report = read_html_report("report.html")
 
+        # Displaying the file
+        st.title("Streamlit Quality Report")
+        st.components.v1.html(html_report,height=1000,scrolling=True)
 
-
-    st.success("Now, we have a clean dataset, ready to be explored")
-
-
-                
-    st.session_state.df = df_numeric_only
 if app_page == 'Visualization':
     st.subheader("03 Data Visualization")
-
-    df = st.session_state.df
     
     list_columns = df.columns
 
@@ -122,7 +81,34 @@ if app_page == 'Visualization':
 if app_page == 'Prediction':
 
     st.title("03 Prediction")
-    df = st.session_state.df
+    
+    st.write("Let's extract the Month played")
+    df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
+
+    total_all_stars_games = (df['Opp'] != "@EAS")
+
+    if total_all_stars_games.sum() != 0:
+        st.write("Let's remove All Star Games since they're not a part of LeBron's season games")
+    
+    df = df[total_all_stars_games]
+    st.write("Next, let's generate a new feature: is the Game Type - Away or Home")
+    df['Game_Type'] = df['Opp'].apply(lambda x: 'Away' if x.startswith('@') else 'Home')
+    
+    
+    st.write("Let's one hot encode it so that we can convert it to numerical columns for our prediction training model")
+    game_dummies = pd.get_dummies(df['Game_Type'], prefix='', prefix_sep='')
+    
+    df = pd.concat([df, game_dummies], axis=1)
+     # Convert to a numerical mins column
+    st.write("Let's convert minutes from a mm:ss:SS format to numerical minutes out of 60")
+    df['Min'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
+    
+    df = df.select_dtypes(exclude=['object'])
+
+    st.dataframe(df_numeric_only.head(5))
+
+    st.success("Now, we have a clean dataset, ready to be explored")
+    
     list_columns = df.columns.drop("Pts")
     input_lr = st.multiselect("Select variables:",list_columns,["FGA","OR","TO"])
 
