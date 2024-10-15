@@ -48,7 +48,7 @@ if app_page == 'Data Exploration':
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
     
-    # Extract the month played
+    st.write("Let's extract the Month played")
     df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
 
     total_all_stars_games = (df['Opp'] != "@EAS")
