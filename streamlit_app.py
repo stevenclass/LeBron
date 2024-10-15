@@ -118,7 +118,7 @@ if app_page == 'Prediction':
 
     st.title("03 Prediction")
     df = st.session_state.df
-    list_columns = df.columns.remove("Pts")
+    list_columns = df.columns.drop("Pts")
     input_lr = st.multiselect("Select variables:",list_columns,["FGA","OR","TO"])
 
     df2 = df[input_lr]
