@@ -22,7 +22,7 @@ image_path = Image.open("nba-lebron-james-record-milliard-fortune-cigare.webp")
 st.image(image_path,width=400)
 
 
-app_page = st.sidebar.selectbox("Select Page",['Data Exploration','Visualization','Prediction'])
+app_page = st.sidebar.selectbox("Select Page",['Profiling Report','Data Exploration','Visualization','Prediction'])
 
 if 'df' not in st.session_state:
     df = pd.read_csv("lebron-game-log-dataset.csv")
@@ -30,6 +30,21 @@ if 'df' not in st.session_state:
 
 # Use session state to store the DataFrame
 df = st.session_state.df.copy()
+
+if app_page == 'Profiling Report':
+    
+    if st.button("Generate Report"):
+        def read_html_report(file_path):
+            try:
+                with codecs.open(file_path, 'r', encoding="utf-8") as f:
+                    return f.read()
+            except Exception as e:
+                st.error(f"Error reading the report file: {e}")
+                return ""
+        html_report = read_html_report("report.html")
+        if html_report:
+            st.title("Streamlit Quality Report")
+            st.components.v1.html(html_report, height=1000, scrolling=True)
 
 if app_page == 'Data Exploration':
 
@@ -48,19 +63,6 @@ if app_page == 'Data Exploration':
 
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
-
-    if st.button("Generate Report"):
-        def read_html_report(file_path):
-            try:
-                with codecs.open(file_path, 'r', encoding="utf-8") as f:
-                    return f.read()
-            except Exception as e:
-                st.error(f"Error reading the report file: {e}")
-                return ""
-        html_report = read_html_report("report.html")
-        if html_report:
-            st.title("Streamlit Quality Report")
-            st.components.v1.html(html_report, height=1000, scrolling=True)
     
     st.write("Let's extract the Month played")
     df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
