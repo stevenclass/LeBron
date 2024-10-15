@@ -47,6 +47,24 @@ if app_page == 'Data Exploration':
 
     if total_missing[0] == 0.0:
         st.success("Congrats you have no missing values")
+
+    if st.button("Generate Report"):
+        def read_html_report(file_path):
+            try:
+                with codecs.open(file_path, 'r', encoding="utf-8") as f:
+                    return f.read()
+            except Exception as e:
+                st.error(f"Error reading the report file: {e}")
+                return ""
+    
+        # Check if the report file exists
+        if not os.path.exists("report.html"):
+            st.error("Report file not found.")
+        else:
+            html_report = read_html_report("report.html")
+            if html_report:
+                st.title("Streamlit Quality Report")
+                st.components.v1.html(html_report, height=1000, scrolling=True)
     
     st.write("Let's extract the Month played")
     df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
@@ -77,23 +95,7 @@ if app_page == 'Data Exploration':
 
     st.success("Now, we have a clean dataset, ready to be explored")
 
-    if st.button("Generate Report"):
-        def read_html_report(file_path):
-            try:
-                with codecs.open(file_path, 'r', encoding="utf-8") as f:
-                    return f.read()
-            except Exception as e:
-                st.error(f"Error reading the report file: {e}")
-                return ""
-    
-        # Check if the report file exists
-        if not os.path.exists("report.html"):
-            st.error("Report file not found.")
-        else:
-            html_report = read_html_report("report.html")
-            if html_report:
-                st.title("Streamlit Quality Report")
-                st.components.v1.html(html_report, height=1000, scrolling=True)
+
                 
     st.session_state.df = df_numeric_only
 if app_page == 'Visualization':
