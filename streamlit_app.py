@@ -98,7 +98,7 @@ if app_page == 'Visualization':
     
     list_columns = df.columns
 
-    values = st.multiselect("Select two variables:",list_columns,["Month", "Pts"])
+    values = st.multiselect("Select two variables:",list_columns,["OR", "Pts"])
 
     # Creation of the line chart
     st.line_chart(df,x=values[0],y=values[1])
