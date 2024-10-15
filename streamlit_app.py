@@ -28,7 +28,7 @@ if 'df' not in st.session_state:
     st.session_state.df = df
 
 # Use session state to store the DataFrame
-df = st.session_state.df
+df = st.session_state.df.copy()
 
 if app_page == 'Data Exploration':
 
