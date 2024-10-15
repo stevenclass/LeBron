@@ -105,7 +105,7 @@ if app_page == 'Prediction':
     
     df = df.select_dtypes(exclude=['object'])
 
-    st.dataframe(df_numeric_only.head(5))
+    st.dataframe(df.head(5))
 
     st.success("Now, we have a clean dataset, ready to be explored")
     
