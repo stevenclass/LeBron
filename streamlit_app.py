@@ -57,15 +57,10 @@ if app_page == 'Data Exploration':
             except Exception as e:
                 st.error(f"Error reading the report file: {e}")
                 return ""
-    
-        # Check if the report file exists
-        if not os.path.exists("report.html"):
-            st.error("Report file not found.")
-        else:
-            html_report = read_html_report("report.html")
-            if html_report:
-                st.title("Streamlit Quality Report")
-                st.components.v1.html(html_report, height=1000, scrolling=True)
+        html_report = read_html_report("report.html")
+        if html_report:
+            st.title("Streamlit Quality Report")
+            st.components.v1.html(html_report, height=1000, scrolling=True)
     
     st.write("Let's extract the Month played")
     df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
