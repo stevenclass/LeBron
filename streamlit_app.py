@@ -78,18 +78,22 @@ if app_page == 'Data Exploration':
     st.success("Now, we have a clean dataset, ready to be explored")
 
     if st.button("Generate Report"):
-
-        #Function to load HTML file
         def read_html_report(file_path):
-            with codecs.open(file_path,'r',encoding="utf-8") as f:
-                return f.read()
-
-        # Inputing the file path 
-        html_report= read_html_report("report.html")
-
-        # Displaying the file
-        st.title("Streamlit Quality Report")
-        st.components.v1.html(html_report,height=1000,scrolling=True)
+            try:
+                with codecs.open(file_path, 'r', encoding="utf-8") as f:
+                    return f.read()
+            except Exception as e:
+                st.error(f"Error reading the report file: {e}")
+                return ""
+    
+        # Check if the report file exists
+        if not os.path.exists("report.html"):
+            st.error("Report file not found.")
+        else:
+            html_report = read_html_report("report.html")
+            if html_report:
+                st.title("Streamlit Quality Report")
+                st.components.v1.html(html_report, height=1000, scrolling=True)
 
 if app_page == 'Visualization':
     st.subheader("03 Data Visualization")
