@@ -107,7 +107,7 @@ if app_page == 'Prediction':
 
     st.dataframe(df.head(5))
 
-    st.success("Now, we have a clean dataset, ready to be explored")
+    st.success("Now, we have all our numerical features ready to be used in our model")
     
     list_columns = df.columns.drop("Pts")
     input_lr = st.multiselect("Select variables:",list_columns,["FGA","OR","TO"])
