@@ -73,7 +73,7 @@ if app_page == 'Data Exploration':
 
     st.dataframe(df_numeric_only.head(5))
 
-    st.session_state.df = df_numeric_only
+
 
     st.success("Now, we have a clean dataset, ready to be explored")
 
@@ -94,7 +94,8 @@ if app_page == 'Data Exploration':
             if html_report:
                 st.title("Streamlit Quality Report")
                 st.components.v1.html(html_report, height=1000, scrolling=True)
-
+                
+    st.session_state.df = df_numeric_only
 if app_page == 'Visualization':
     st.subheader("03 Data Visualization")
 
