@@ -6,6 +6,7 @@ from PIL import Image
 import seaborn as sns
 import codecs
 import streamlit.components.v1 as components
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
