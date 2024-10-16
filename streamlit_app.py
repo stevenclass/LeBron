@@ -130,7 +130,11 @@ if app_page == 'Prediction':
 
     #Step5 Prediction 
     predictions = lr.predict(X_test)
-    st.dataframe(pd.concat(predictions + [y_test], axis=1))
+    predictions_df = pd.Series(predictions, index=y_test.index, name="Predictions")
+
+    result = pd.concat([predictions_df, y_test], axis=1)
+
+    st.dataframe(result)
 
     #Stp6 Evaluation
 
