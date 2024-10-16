@@ -130,6 +130,7 @@ if app_page == 'Prediction':
 
     #Step5 Prediction 
     predictions = lr.predict(X_test)
+    st.dataframe(pd.concat(predictions, y_test))
 
     #Stp6 Evaluation
 
