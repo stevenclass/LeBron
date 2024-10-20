@@ -25,7 +25,13 @@ df = pd.read_csv("lebron-game-log-dataset.csv")
 
 if app_page == 'Business Case':
 
-    st.subheader("1. Business Case")
+    st.title("1. Business Case")
+
+    st.subheader("Objective:")
+    
+    st.write("The purpose of this dashboard is to analyze LeBron James’ game performance across 3 different seasons (2021-2023) and explore potential relationships between his game stats and his game points. For this page, we aim to create an efficent model using Linear Regression that will help us predict LeBron’s stats in his upcoming seasonal games in future by examining historical trends and the relationship between key performance variables.")
+
+    st.subheader("Key Questions:")
 
 if app_page == 'Data Exploration':
     
