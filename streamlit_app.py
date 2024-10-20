@@ -17,20 +17,23 @@ st.title("Lebron's Game Points Prediction")
 
 image_path = Image.open("nba-lebron-james-record-milliard-fortune-cigare.webp")
 
-
 st.image(image_path,width=400)
 
-
-app_page = st.sidebar.selectbox("Select Page",['Data Exploration','Visualization','Prediction'])
+app_page = st.sidebar.selectbox("Select Page",['Business Case','Data Exploration','Visualization','Prediction', 'Data Insights'])
 
 df = pd.read_csv("lebron-game-log-dataset.csv")
 
-if app_page == 'Data Exploration':
+if app_page == 'Business Case':
 
+    st.subheader("1. Business Case")
+
+if app_page == 'Data Exploration':
+    
+    st.title("2. Data Exploration")
 
     st.dataframe(df.head(5))
 
-    st.subheader("01 Description of the dataset")
+   st.subheader("01 Description of the dataset")
 
     st.dataframe(df.describe())
 
@@ -58,7 +61,15 @@ if app_page == 'Data Exploration':
         st.components.v1.html(html_report,height=1000,scrolling=True)
 
 if app_page == 'Visualization':
-    st.subheader("03 Data Visualization")
+    st.title("3. Data Visualization")
+
+    df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
+
+    total_all_stars_games = (df['Opp'] != "@EAS")
+    
+    df = df[total_all_stars_games]
+    df['Game_Type'] = df['Opp'].apply(lambda x: 'Away' if x.startswith('@') else 'Home')
+    df['Min'] = df['Min'].apply(lambda x: int(x.split(':')[0]) + int(x.split(':')[1]) / 60)
     
     list_columns = df.columns
 
@@ -80,7 +91,7 @@ if app_page == 'Visualization':
 
 if app_page == 'Prediction':
 
-    st.title("03 Prediction")
+    st.title("4. Prediction")
     
     st.write("Let's extract the Month played")
     df['Month'] = pd.to_datetime(df['Date'] + ' 2020', format='mixed').dt.month
