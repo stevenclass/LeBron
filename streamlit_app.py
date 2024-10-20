@@ -33,13 +33,19 @@ if app_page == 'Business Case':
 
     st.subheader("Key Questions:")
 
+    st.write("""
+            - How have LeBron’s key statistics (points, rebounds, assists, etc.) evolved over his career?
+            - What patterns emerge in his game performance during each season?  
+            - 
+            """)
+
 if app_page == 'Data Exploration':
     
     st.title("2. Data Exploration")
 
     st.dataframe(df.head(5))
 
-   st.subheader("01 Description of the dataset")
+    st.subheader("01 Description of the dataset")
 
     st.dataframe(df.describe())
 
