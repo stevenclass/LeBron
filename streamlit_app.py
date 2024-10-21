@@ -10,7 +10,7 @@ import streamlit.components.v1 as components
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
-
+font = "monospace"
 left_co, cent_co,last_co = st.columns(3)
 
 st.title("LeBron's Game Points Prediction")
