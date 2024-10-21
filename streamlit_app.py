@@ -13,7 +13,7 @@ from sklearn import metrics
 
 left_co, cent_co,last_co = st.columns(3)
 
-st.title("Lebron's Game Points Prediction")
+st.title("LeBron's Game Points Prediction")
 
 image_path = Image.open("nba-lebron-james-record-milliard-fortune-cigare.webp")
 
